@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=navicross
+      - POSTGRES_PASSWORD=navipass
+      - POSTGRES_DB=orm_db
+volumes:
+  database-data:
