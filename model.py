@@ -13,3 +13,4 @@ if __name__ == "__main__":
    for row in  TableName12._select_all_table_data():
        print(row[0])
 
+
