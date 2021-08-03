@@ -36,6 +36,7 @@ class ModelService():
                                                           for attr in attr_list]
 
     def create_table_in_db(self):
+        print(self.query_strings)
         with psycopg2.connect(DB_URL) as conn:
             with conn.cursor(cursor_factory=DictCursor) as cursor:
                 for string in self.query_strings:
@@ -57,26 +58,14 @@ class ModelService():
 
         self.query_strings.append(''.join([f'CREATE TABLE IF NOT EXISTS  {k}  ({self.make_fields(v)});\n' for (k, v) in self.class_attr_dict.items()]))
 
+    # def select_all_table_data(self):
+    #     query_string = f"""SELECT * FROM {self.__name__}"""
+    #     print(query_string)
 
-# model_classess = []
-
-# for module in modules_list:
-#     for mod in dir(module):
-#         try:
-#             if issubclass(getattr(module, mod), orm.Table):
-#                 model_classess.append(getattr(module, mod))
-#         except TypeError:
-#             pass
-
-# class_attr_dict = {}
-# for model_class in model_classess:
-#     attr_list = [attr for attr in dir(model_class) if not attr.startswith('_')]
-#     class_attr_dict[model_class.__name__] = [f'{attr} {str(getattr(model_class, attr))}' for attr in attr_list]
-#
-# print(class_attr_dict)
 
 
 if __name__ == "__main__":
     initial = ModelService()
     initial.make_table_string()
     initial.create_table_in_db()
+
